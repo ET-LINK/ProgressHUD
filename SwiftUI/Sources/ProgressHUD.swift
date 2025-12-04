@@ -43,6 +43,10 @@ public class ProgressHUD {
 	var bannerTitle: String?
 	var bannerMessage: String?
 	var bannerTask: Task<Void, Never>?
+	var bannerType: BannerType?
+	var bannerIcon: Image?
+	var bannerDismissible = true
+	var bannerInteraction = true
 
 	var liveIconID = UUID()
 
@@ -64,9 +68,9 @@ public class ProgressHUD {
 
 	public var colorBanner = Color.clear
 	public var colorBannerTitle = Color(UIColor.label)
-	public var colorBannerMessage = Color(UIColor.secondaryLabel)
+    public var colorBannerMessage = Color.primary
 	public var fontBannerTitle = Font.system(size: 16, weight: .semibold)
-	public var fontBannerMessage = Font.system(size: 14)
+	public var fontBannerMessage = Font.system(size: 16)
 
 	var interaction = true
 	var dismissTask: Task<Void, Never>?

@@ -38,6 +38,7 @@
 		AA000032248C1C5B003E8AE6 /* SFSymbolBounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100032248C1C5B003E8AE6 /* SFSymbolBounceView.swift */; };
 		AA000033248C1C5B003E8AE6 /* SquareCircuitSnakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100033248C1C5B003E8AE6 /* SquareCircuitSnakeView.swift */; };
 		AA000034248C1C5B003E8AE6 /* TriangleDotShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100034248C1C5B003E8AE6 /* TriangleDotShiftView.swift */; };
+		FA1CA7192EE1285E004F138E /* GlassBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1CA7182EE1285E004F138E /* GlassBackgroundModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		AA100033248C1C5B003E8AE6 /* SquareCircuitSnakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCircuitSnakeView.swift; sourceTree = "<group>"; };
 		AA100034248C1C5B003E8AE6 /* TriangleDotShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleDotShiftView.swift; sourceTree = "<group>"; };
 		AAD29EF11D9A59E4006CA074 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1CA7182EE1285E004F138E /* GlassBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassBackgroundModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 		AA200002248C1C5B003E8AE6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FA1CA7182EE1285E004F138E /* GlassBackgroundModifier.swift */,
 				AA200001248C1C5B003E8AE6 /* Animations */,
 				AA100010248C1C5B003E8AE6 /* ProgressHUD.swift */,
 				AA100015248C1C5B003E8AE6 /* ProgressHUD+Banner.swift */,
@@ -240,6 +243,7 @@
 				AA000022248C1C5B003E8AE6 /* BallVerticalBounceView.swift in Sources */,
 				AA000023248C1C5B003E8AE6 /* BarSweepToggleView.swift in Sources */,
 				AA000024248C1C5B003E8AE6 /* CircleArcDotSpinView.swift in Sources */,
+				FA1CA7192EE1285E004F138E /* GlassBackgroundModifier.swift in Sources */,
 				AA000025248C1C5B003E8AE6 /* CircleBarSpinFadeView.swift in Sources */,
 				AA000026248C1C5B003E8AE6 /* CircleDotSpinFadeView.swift in Sources */,
 				AA000027248C1C5B003E8AE6 /* CirclePulseMultipleView.swift in Sources */,
@@ -387,6 +391,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VTKA9JS87L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = ProgressHUD;
@@ -401,8 +406,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 15.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
+				PRODUCT_BUNDLE_IDENTIFIER = com.link.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -417,6 +423,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VTKA9JS87L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = ProgressHUD;
@@ -431,8 +438,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 15.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
+				PRODUCT_BUNDLE_IDENTIFIER = com.link.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

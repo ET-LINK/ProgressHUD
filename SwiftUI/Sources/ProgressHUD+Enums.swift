@@ -45,3 +45,13 @@ public enum LiveIcon: Equatable {
 	case failed
 	case added
 }
+
+// MARK: - BannerType
+public enum BannerType: Equatable {
+
+	case loading
+	case success
+	case error
+	case warning
+	case info
+}

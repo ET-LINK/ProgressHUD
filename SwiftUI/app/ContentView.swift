@@ -54,7 +54,7 @@ struct ContentView: View {
 
 	private let animations = AnimationType.allCases
 	private let textShort = "Please wait..."
-	private let textLong = "Please wait. We need some more time to work out this situation."
+	private let textLong = "Please wait. We need some more time to work out this situation. Please wait. We need some more time to work out this situation."
 	private let textSuccess = "That was awesome!"
 	private let textError = "Something went wrong."
 	private let textSucceed = "That was awesome!"
@@ -67,9 +67,30 @@ struct ContentView: View {
 			List {
 				// MARK: - Banner Actions
 				Section("Banner Actions") {
-					Button("Show Banner") {
+					Button("Banner Loading") {
+						ProgressHUD.bannerLoading("Verifying code...")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                            ProgressHUD.bannerHide()
+                        }
+					}
+					Button("Banner Success") {
+						ProgressHUD.bannerSuccess("welcome")
+					}
+					Button("Banner Error") {
+						ProgressHUD.bannerError("Code Invalid")
+					}
+					Button("Banner Warning") {
+						ProgressHUD.bannerWarning("Low Battery")
+					}
+					Button("Banner Info") {
+						ProgressHUD.bannerInfo(textLong)
+					}
+					Button("Banner with Title") {
+						ProgressHUD.bannerSuccess("Login successful", "Welcome")
+					}
+					Button("Banner - Legacy (No icon)") {
 						bannerToggle.toggle()
-						ProgressHUD.banner("Banner title", bannerToggle ? textAdded : textLong)
+						ProgressHUD.banner("", bannerToggle ? textAdded : textLong)
 					}
 					Button("Hide Banner") {
 						ProgressHUD.bannerHide()

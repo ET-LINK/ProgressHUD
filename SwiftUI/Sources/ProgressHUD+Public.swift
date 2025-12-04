@@ -303,7 +303,11 @@ public extension ProgressHUD {
 		shared.bannerTask?.cancel()
 		shared.bannerTitle = title
 		shared.bannerMessage = message
-		withAnimation(.easeOut(duration: 0.25)) {
+		shared.bannerType = nil
+		shared.bannerIcon = nil
+		shared.bannerDismissible = true
+		shared.bannerInteraction = true
+		withAnimation(.easeInOut(duration: 0.2)) {
 			shared.bannerVisible = true
 		}
 		shared.bannerTask = Task {
@@ -315,15 +319,84 @@ public extension ProgressHUD {
 	}
 
 	@MainActor
+	static func banner(_ type: BannerType, _ message: String?, _ title: String? = nil, delay: TimeInterval? = nil) {
+		shared.bannerTask?.cancel()
+		shared.bannerType = type
+		shared.bannerIcon = nil
+		shared.bannerTitle = title
+		shared.bannerMessage = message
+
+		// loading 类型不可关闭且阻塞交互
+		if type == .loading {
+			shared.bannerDismissible = false
+			shared.bannerInteraction = false
+		} else {
+			shared.bannerDismissible = true
+			shared.bannerInteraction = true
+		}
+
+		withAnimation(.easeInOut(duration: 0.2)) {
+			shared.bannerVisible = true
+		}
+
+		// 如果指定了 delay 或者不是 loading 类型，自动隐藏
+		if let delay = delay, delay > 0 {
+			shared.bannerTask = Task {
+				try? await Task.sleep(for: .seconds(delay))
+				if !Task.isCancelled {
+					bannerHide()
+				}
+			}
+		} else if type != .loading {
+			// 非 loading 类型默认 3 秒后自动隐藏
+			shared.bannerTask = Task {
+				try? await Task.sleep(for: .seconds(3.0))
+				if !Task.isCancelled {
+					bannerHide()
+				}
+			}
+		}
+	}
+
+	@MainActor
+	static func bannerLoading(_ message: String?, _ title: String? = nil) {
+		banner(.loading, message, title, delay: nil)
+	}
+
+	@MainActor
+	static func bannerSuccess(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		banner(.success, message, title, delay: delay)
+	}
+
+	@MainActor
+	static func bannerError(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		banner(.error, message, title, delay: delay)
+	}
+
+	@MainActor
+	static func bannerWarning(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		banner(.warning, message, title, delay: delay)
+	}
+
+	@MainActor
+	static func bannerInfo(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		banner(.info, message, title, delay: delay)
+	}
+
+	@MainActor
 	static func bannerHide() {
 		shared.bannerTask?.cancel()
-		withAnimation(.easeIn(duration: 0.25)) {
+		withAnimation(.easeInOut(duration: 0.2)) {
 			shared.bannerVisible = false
 		}
 		Task {
-			try? await Task.sleep(for: .milliseconds(250))
+			try? await Task.sleep(for: .milliseconds(200))
 			shared.bannerTitle = nil
 			shared.bannerMessage = nil
+			shared.bannerType = nil
+			shared.bannerIcon = nil
+			shared.bannerDismissible = true
+			shared.bannerInteraction = true
 		}
 	}
 }

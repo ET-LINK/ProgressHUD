@@ -23,45 +23,97 @@ public struct ProgressBannerView: View {
 	// MARK: - Body
 	public var body: some View {
 		if hud.bannerVisible {
-			VStack {
-				bannerContent
-					.padding(.horizontal, 16)
-					.padding(.top, 8)
-				Spacer()
+			ZStack {
+				// 背景遮罩层（用于控制UI交互）
+				Color.black.opacity(0.001)
+					.ignoresSafeArea()
+					.allowsHitTesting(!hud.bannerInteraction)
+
+				// Banner 内容
+				VStack {
+					bannerContent
+						.padding(.horizontal, 16)
+						.padding(.top, 8)
+					Spacer()
+				}
 			}
-			.transition(.move(edge: .top).combined(with: .opacity))
+			.transition(
+				.offset(y: -20)
+				.combined(with: .opacity)
+			)
 		}
 	}
 
 	// MARK: - Private Views
 	private var bannerContent: some View {
-		VStack(alignment: .leading, spacing: 4) {
-			if let title = hud.bannerTitle, !title.isEmpty {
-				Text(title)
-					.font(hud.fontBannerTitle)
+		HStack(spacing: 8) {
+			// 图标
+			if let bannerType = hud.bannerType {
+				bannerIcon(for: bannerType)
+					.font(.system(size: 20))
 					.foregroundStyle(hud.colorBannerTitle)
-					.lineLimit(1)
+					.frame(width: 24, height: 24)
+			} else if let customIcon = hud.bannerIcon {
+				customIcon
+					.font(.system(size: 20))
+					.foregroundStyle(hud.colorBannerTitle)
+					.frame(width: 24, height: 24)
 			}
-			if let message = hud.bannerMessage, !message.isEmpty {
-				Text(message)
-					.font(hud.fontBannerMessage)
-					.foregroundStyle(hud.colorBannerMessage)
-					.lineLimit(2)
+
+			// 文本内容
+			VStack(alignment: .leading, spacing: 4) {
+				if let title = hud.bannerTitle, !title.isEmpty {
+					Text(title)
+						.font(hud.fontBannerTitle)
+						.foregroundStyle(hud.colorBannerTitle)
+						.lineLimit(1)
+				}
+				if let message = hud.bannerMessage, !message.isEmpty {
+					Text(message)
+						.font(hud.fontBannerMessage)
+						.foregroundStyle(hud.colorBannerMessage)
+						.lineLimit(4)
+				}
+			}
+			.frame(maxWidth: .infinity, alignment: .leading)
+
+			// 关闭按钮
+			if hud.bannerDismissible {
+				Button {
+					ProgressHUD.bannerHide()
+				} label: {
+					Image(systemName: "xmark")
+						.font(.system(size: 14, weight: .semibold))
+						.foregroundStyle(hud.colorBannerTitle.opacity(0.6))
+						.frame(width: 24, height: 24)
+				}
 			}
 		}
-		.frame(maxWidth: .infinity, alignment: .leading)
 		.padding(.horizontal, 16)
 		.padding(.vertical, 12)
-		.background {
-			RoundedRectangle(cornerRadius: 10)
-				.fill(.ultraThinMaterial)
-				.background {
-					RoundedRectangle(cornerRadius: 10)
-						.fill(hud.colorBanner)
-				}
-		}
+        .glassBackground(RoundedRectangle(cornerRadius: 32))
 		.onTapGesture {
-			ProgressHUD.bannerHide()
+			if hud.bannerDismissible {
+				ProgressHUD.bannerHide()
+			}
+		}
+	}
+
+	@ViewBuilder
+	private func bannerIcon(for type: BannerType) -> some View {
+		switch type {
+		case .loading:
+			ProgressView()
+				.progressViewStyle(.circular)
+                .scaleEffect(1)
+		case .success:
+			Image(systemName: "checkmark.circle")
+		case .error:
+			Image(systemName: "xmark.circle")
+		case .warning:
+			Image(systemName: "exclamationmark.bubble")
+		case .info:
+			Image(systemName: "info.circle")
 		}
 	}
 }
