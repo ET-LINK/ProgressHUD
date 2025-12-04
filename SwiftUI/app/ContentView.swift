@@ -51,6 +51,7 @@ struct ContentView: View {
 	@State private var counter: Double = 0
 	@State private var bannerToggle = false
 	@State private var textFieldValue = ""
+	@State private var showModalSheet = false
 
 	private let animations = AnimationType.allCases
 	private let textShort = "Please wait..."
@@ -65,6 +66,13 @@ struct ContentView: View {
 	var body: some View {
 		NavigationStack {
 			List {
+				// MARK: - Modal Test
+				Section("Modal Test") {
+					Button("Open Modal Sheet") {
+						showModalSheet = true
+					}
+				}
+
 				// MARK: - Banner Actions
 				Section("Banner Actions") {
 					Button("Banner Loading") {
@@ -214,6 +222,9 @@ struct ContentView: View {
 				}
 			}
 			.navigationTitle("ProgressHUD")
+			.sheet(isPresented: $showModalSheet) {
+				ModalTestView()
+			}
 		}
 	}
 
@@ -245,6 +256,99 @@ struct ContentView: View {
 		let symbols = ["star.fill", "heart.fill", "bolt.fill", "flame.fill", "leaf.fill",
 					   "moon.fill", "sun.max.fill", "cloud.fill", "snowflake", "sparkles"]
 		return symbols.randomElement() ?? "star.fill"
+	}
+}
+
+// MARK: - ModalTestView
+struct ModalTestView: View {
+
+	@Environment(\.dismiss) var dismiss
+	@State private var bannerToggle = false
+
+	private let textLong = "This is a long message to test the banner display in a modal view. Please wait. We need some more time to work out this situation."
+
+	var body: some View {
+		NavigationStack {
+			List {
+				// MARK: - Banner Tests
+				Section("Banner Tests in Modal") {
+					Button("Banner Loading") {
+						ProgressHUD.bannerLoading("Verifying code in modal...")
+						DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+							ProgressHUD.bannerHide()
+						}
+					}
+
+					Button("Banner Success") {
+						ProgressHUD.bannerSuccess("Success in modal view!")
+					}
+
+					Button("Banner Success with Title") {
+						ProgressHUD.bannerSuccess("Login successful", "Welcome Back")
+					}
+
+					Button("Banner Error") {
+						ProgressHUD.bannerError("Invalid code entered")
+					}
+
+					Button("Banner Warning") {
+						ProgressHUD.bannerWarning("Battery level is low")
+					}
+
+					Button("Banner Info") {
+						ProgressHUD.bannerInfo(textLong)
+					}
+
+					Button("Banner Info with Title") {
+						ProgressHUD.bannerInfo("New features available", "Update Available")
+					}
+
+					Button("Banner - Legacy (No icon)") {
+						bannerToggle.toggle()
+						ProgressHUD.banner("Custom Banner", bannerToggle ? "Short message" : textLong)
+					}
+
+					Button("Hide Banner") {
+						ProgressHUD.bannerHide()
+					}
+				}
+
+				// MARK: - HUD Tests
+				Section("HUD Tests in Modal") {
+					Button("Show Loading HUD") {
+						ProgressHUD.animate("Loading in modal...")
+						DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+							ProgressHUD.succeed("Done!")
+						}
+					}
+
+					Button("Show Progress") {
+						ProgressHUD.progress("Uploading...", 0.5)
+					}
+
+					Button("Show Success") {
+						ProgressHUD.succeed("Success in modal!")
+					}
+
+					Button("Show Error") {
+						ProgressHUD.failed("Error in modal!")
+					}
+
+					Button("Dismiss HUD") {
+						ProgressHUD.dismiss()
+					}
+				}
+			}
+			.navigationTitle("Modal Test")
+			.navigationBarTitleDisplayMode(.inline)
+			.toolbar {
+				ToolbarItem(placement: .cancellationAction) {
+					Button("Close") {
+						dismiss()
+					}
+				}
+			}
+		}
 	}
 }
 

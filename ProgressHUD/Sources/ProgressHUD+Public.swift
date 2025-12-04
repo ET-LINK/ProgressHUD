@@ -243,8 +243,58 @@ public extension ProgressHUD {
 
 	class func banner(_ title: String?, _ message: String?, delay: TimeInterval = 3.0) {
 		DispatchQueue.main.async {
+			shared.bannerType = nil
+			shared.bannerDismissible = true
+			shared.bannerInteraction = true
 			shared.showBanner(title: title, message: message, delay: delay)
 		}
+	}
+
+	class func banner(_ type: BannerType, _ message: String?, _ title: String? = nil, delay: TimeInterval? = nil) {
+		DispatchQueue.main.async {
+			shared.bannerType = type
+
+			// loading type is not dismissible and blocks interaction
+			if type == .loading {
+				shared.bannerDismissible = false
+				shared.bannerInteraction = false
+			} else {
+				shared.bannerDismissible = true
+				shared.bannerInteraction = true
+			}
+
+			// Determine delay
+			var actualDelay: TimeInterval
+			if let delay = delay, delay > 0 {
+				actualDelay = delay
+			} else if type == .loading {
+				actualDelay = 0 // loading doesn't auto-dismiss
+			} else {
+				actualDelay = 3.0 // default for other types
+			}
+
+			shared.showBanner(title: title, message: message, delay: actualDelay)
+		}
+	}
+
+	class func bannerLoading(_ message: String?, _ title: String? = nil) {
+		banner(.loading, message, title, delay: nil)
+	}
+
+	class func bannerSuccess(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		banner(.success, message, title, delay: delay)
+	}
+
+	class func bannerError(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		banner(.error, message, title, delay: delay)
+	}
+
+	class func bannerWarning(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		banner(.warning, message, title, delay: delay)
+	}
+
+	class func bannerInfo(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		banner(.info, message, title, delay: delay)
 	}
 
 	class func bannerHide() {

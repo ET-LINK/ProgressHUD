@@ -128,6 +128,7 @@ public extension ProgressHUD {
 			if !Task.isCancelled {
 				shared.text = nil
 				shared.staticImage = nil
+				shared.hideHUDWindow()
 			}
 		}
 	}
@@ -137,6 +138,7 @@ public extension ProgressHUD {
 		shared.isVisible = false
 		shared.text = nil
 		shared.staticImage = nil
+		shared.hideHUDWindow()
 	}
 }
 
@@ -150,6 +152,7 @@ public extension ProgressHUD {
 		shared.displayMode = .animation
 		shared.text = text
 		shared.interaction = interaction
+		shared.showHUDWindow()
 		withAnimation(.easeOut(duration: 0.15)) {
 			shared.isVisible = true
 		}
@@ -163,6 +166,7 @@ public extension ProgressHUD {
 		shared.displayMode = .animation
 		shared.text = text
 		shared.interaction = interaction
+		shared.showHUDWindow()
 		withAnimation(.easeOut(duration: 0.15)) {
 			shared.isVisible = true
 		}
@@ -177,6 +181,7 @@ public extension ProgressHUD {
 		shared.displayMode = .animation
 		shared.text = text
 		shared.interaction = interaction
+		shared.showHUDWindow()
 		withAnimation(.easeOut(duration: 0.15)) {
 			shared.isVisible = true
 		}
@@ -194,6 +199,7 @@ public extension ProgressHUD {
 		shared.progressValue = max(0, min(1, value))
 		shared.text = nil
 		shared.interaction = interaction
+		shared.showHUDWindow()
 		withAnimation(.easeOut(duration: 0.15)) {
 			shared.isVisible = true
 		}
@@ -207,6 +213,7 @@ public extension ProgressHUD {
 		shared.progressValue = max(0, min(1, value))
 		shared.text = text
 		shared.interaction = interaction
+		shared.showHUDWindow()
 		withAnimation(.easeOut(duration: 0.15)) {
 			shared.isVisible = true
 		}
@@ -225,6 +232,7 @@ public extension ProgressHUD {
 		shared.displayMode = .liveIcon(icon)
 		shared.text = text
 		shared.interaction = interaction
+		shared.showHUDWindow()
 		withAnimation(.easeOut(duration: 0.15)) {
 			shared.isVisible = true
 		}
@@ -263,6 +271,7 @@ public extension ProgressHUD {
 		shared.staticImage = image
 		shared.text = text
 		shared.interaction = interaction
+		shared.showHUDWindow()
 		withAnimation(.easeOut(duration: 0.15)) {
 			shared.isVisible = true
 		}
@@ -307,6 +316,7 @@ public extension ProgressHUD {
 		shared.bannerIcon = nil
 		shared.bannerDismissible = true
 		shared.bannerInteraction = true
+		shared.showBannerWindow()
 		withAnimation(.easeInOut(duration: 0.2)) {
 			shared.bannerVisible = true
 		}
@@ -335,6 +345,7 @@ public extension ProgressHUD {
 			shared.bannerInteraction = true
 		}
 
+		shared.showBannerWindow()
 		withAnimation(.easeInOut(duration: 0.2)) {
 			shared.bannerVisible = true
 		}
@@ -397,6 +408,7 @@ public extension ProgressHUD {
 			shared.bannerIcon = nil
 			shared.bannerDismissible = true
 			shared.bannerInteraction = true
+			shared.hideBannerWindow()
 		}
 	}
 }

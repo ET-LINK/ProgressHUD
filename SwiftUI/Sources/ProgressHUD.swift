@@ -77,7 +77,67 @@ public class ProgressHUD {
 	var dismissAnimTask: Task<Void, Never>?
 	var keyboardHeight: CGFloat = 0
 
+	// UIWindow-based hosting
+	private var hudWindow: UIWindow?
+	private var bannerWindow: UIWindow?
+
 	private init() {}
+
+	private func ensureHUDWindow() {
+		guard hudWindow == nil else { return }
+
+		if let windowScene = UIApplication.shared.connectedScenes
+			.compactMap({ $0 as? UIWindowScene })
+			.first(where: { $0.activationState == .foregroundActive || $0.activationState == .foregroundInactive }) {
+
+			hudWindow = UIWindow(windowScene: windowScene)
+			hudWindow?.windowLevel = .alert
+			hudWindow?.backgroundColor = .clear
+			hudWindow?.isUserInteractionEnabled = true
+
+			let hostingController = UIHostingController(rootView: ProgressHUDView())
+			hostingController.view.backgroundColor = .clear
+			hudWindow?.rootViewController = hostingController
+			hudWindow?.makeKeyAndVisible()
+		}
+	}
+
+	private func ensureBannerWindow() {
+		guard bannerWindow == nil else { return }
+
+		if let windowScene = UIApplication.shared.connectedScenes
+			.compactMap({ $0 as? UIWindowScene })
+			.first(where: { $0.activationState == .foregroundActive || $0.activationState == .foregroundInactive }) {
+
+			bannerWindow = UIWindow(windowScene: windowScene)
+			bannerWindow?.windowLevel = .alert + 1
+			bannerWindow?.backgroundColor = .clear
+			bannerWindow?.isUserInteractionEnabled = true
+
+			let hostingController = UIHostingController(rootView: ProgressBannerView())
+			hostingController.view.backgroundColor = .clear
+			bannerWindow?.rootViewController = hostingController
+			bannerWindow?.makeKeyAndVisible()
+		}
+	}
+
+	func showHUDWindow() {
+		ensureHUDWindow()
+		hudWindow?.isHidden = false
+	}
+
+	func hideHUDWindow() {
+		hudWindow?.isHidden = true
+	}
+
+	func showBannerWindow() {
+		ensureBannerWindow()
+		bannerWindow?.isHidden = false
+	}
+
+	func hideBannerWindow() {
+		bannerWindow?.isHidden = true
+	}
 }
 
 // MARK: - ProgressHUDView
@@ -258,24 +318,23 @@ public struct ProgressHUDView: View {
 	}
 }
 
-// MARK: - ProgressHUDModifier
+// MARK: - ProgressHUDModifier (Deprecated)
+@available(*, deprecated, message: "ProgressHUD now uses UIWindow-based display and no longer requires .progressHUD() modifier. You can safely remove it from your views.")
 public struct ProgressHUDModifier: ViewModifier {
 
 	// MARK: - Body
 	public func body(content: Content) -> some View {
+		// No longer adds overlay - HUD is displayed via UIWindow
 		content
-			.overlay {
-				ProgressHUDView()
-			}
-			.overlay(alignment: .top) {
-				ProgressBannerView()
-			}
 	}
 }
 
 // MARK: - View Extension
 public extension View {
 
+	/// Deprecated: ProgressHUD now displays via UIWindow and works across all view hierarchies including sheets and full screen covers.
+	/// You no longer need to add `.progressHUD()` to your views. This modifier is kept for backward compatibility but does nothing.
+	@available(*, deprecated, message: "ProgressHUD now uses UIWindow-based display. This modifier is no longer needed and can be safely removed.")
 	func progressHUD() -> some View {
 		modifier(ProgressHUDModifier())
 	}
