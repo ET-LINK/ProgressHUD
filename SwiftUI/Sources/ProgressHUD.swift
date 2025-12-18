@@ -79,7 +79,7 @@ public class ProgressHUD {
 
 	// UIWindow-based hosting
 	private var hudWindow: UIWindow?
-	private var bannerWindow: UIWindow?
+	private var bannerWindow: PassthroughWindow?
 
 	private init() {}
 
@@ -109,7 +109,7 @@ public class ProgressHUD {
 			.compactMap({ $0 as? UIWindowScene })
 			.first(where: { $0.activationState == .foregroundActive || $0.activationState == .foregroundInactive }) {
 
-			bannerWindow = UIWindow(windowScene: windowScene)
+			bannerWindow = PassthroughWindow(windowScene: windowScene)
 			bannerWindow?.windowLevel = .alert + 1
 			bannerWindow?.backgroundColor = .clear
 			bannerWindow?.isUserInteractionEnabled = true
@@ -133,6 +133,8 @@ public class ProgressHUD {
 	func showBannerWindow() {
 		ensureBannerWindow()
 		bannerWindow?.isHidden = false
+		// Update passthrough behavior based on interaction setting
+		bannerWindow?.shouldPassthroughTouches = bannerInteraction
 	}
 
 	func hideBannerWindow() {
