@@ -49,6 +49,7 @@ class ViewController: UITableViewController {
 	let animations = AnimationType.allCases
 	var symbols: [String] = []
 
+	var actionsBanner: [String] = []
 	var actions1: [String] = []
 	var actions2: [String] = []
 	var actions3: [String] = []
@@ -78,6 +79,15 @@ class ViewController: UITableViewController {
 		DispatchQueue.main.async {
 			self.loadSymbols()
 		}
+
+		actionsBanner.append("Banner Loading")
+		actionsBanner.append("Banner Success")
+		actionsBanner.append("Banner Error")
+		actionsBanner.append("Banner Warning")
+		actionsBanner.append("Banner Info")
+		actionsBanner.append("Banner with Title")
+		actionsBanner.append("Banner - Legacy (No icon)")
+		actionsBanner.append("Hide Banner")
 
 		actions1.append("Animation - No text")
 		actions1.append("Animation - Short text")
@@ -151,7 +161,7 @@ extension ViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if (section == 0) { return 2 }
+		if (section == 0) { return actionsBanner.count }
 		if (section == 1) { return 4 }
 
 		if (section == 2) { return animations.count	}
@@ -165,8 +175,7 @@ extension ViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		if (indexPath.section == 0) && (indexPath.row == 0) { return cellWithText(tableView, "Show Banner") }
-		if (indexPath.section == 0) && (indexPath.row == 1) { return cellWithText(tableView, "Hide Banner") }
+		if (indexPath.section == 0) { return cellWithText(tableView, actionsBanner[indexPath.row]) }
 
 		if (indexPath.section == 1) && (indexPath.row == 0) { return cellText }
 		if (indexPath.section == 1) && (indexPath.row == 1) { return cellWithText(tableView, "Dismiss Keyboard") }
@@ -210,8 +219,19 @@ extension ViewController {
 		tableView.deselectRow(at: indexPath, animated: true)
 
 		if (indexPath.section == 0) {
-			if (indexPath.row == 0) { ProgressHUD.banner("Banner title", toggleText()) }
-			if (indexPath.row == 1) { ProgressHUD.bannerHide() }
+			if (indexPath.row == 0) {
+				ProgressHUD.bannerLoading("Verifying code...")
+				DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+					ProgressHUD.bannerHide()
+				}
+			}
+			if (indexPath.row == 1) { ProgressHUD.bannerSuccess("Welcome") }
+			if (indexPath.row == 2) { ProgressHUD.bannerError("Code Invalid") }
+			if (indexPath.row == 3) { ProgressHUD.bannerWarning("Low Battery") }
+			if (indexPath.row == 4) { ProgressHUD.bannerInfo(textLong) }
+			if (indexPath.row == 5) { ProgressHUD.bannerSuccess("Login successful", "Welcome") }
+			if (indexPath.row == 6) { ProgressHUD.banner("", toggleText()) }
+			if (indexPath.row == 7) { ProgressHUD.bannerHide() }
 		}
 
 		if (indexPath.section == 1) {

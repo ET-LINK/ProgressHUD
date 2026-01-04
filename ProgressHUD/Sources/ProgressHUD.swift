@@ -16,20 +16,27 @@ public class ProgressHUD: UIView {
 	var main: UIWindow!
 
 	// Banner properties
-	var viewBanner: UIToolbar?
+	var viewBanner: UIView?
 	var colorBanner = UIColor.clear
 	var timerBanner: Timer?
 	var observerBanner: NSObjectProtocol?
 
 	var textBannerTitle = ""
 	var colorBannerTitle = UIColor.label
-	var fontBannerTitle = UIFont.boldSystemFont(ofSize: 16)
+	var fontBannerTitle = UIFont.systemFont(ofSize: 16, weight: .semibold)
 	var labelBannerTitle: UILabel?
 
 	var textBannerMessage = ""
-	var colorBannerMessage = UIColor.secondaryLabel
-	var fontBannerMessage = UIFont.systemFont(ofSize: 14)
+	var colorBannerMessage = UIColor.label
+	var fontBannerMessage = UIFont.systemFont(ofSize: 16)
 	var labelBannerMessage: UILabel?
+
+	var bannerType: BannerType?
+	var bannerIcon: UIImage?
+	var bannerDismissible = true
+	var bannerInteraction = true
+	var bannerIconView: UIView?
+	var bannerCloseButton: UIButton?
 
 	// HUD properties
 	var timerHUD: Timer?

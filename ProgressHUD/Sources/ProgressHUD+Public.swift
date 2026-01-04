@@ -247,6 +247,42 @@ public extension ProgressHUD {
 		}
 	}
 
+	class func banner(_ type: BannerType, _ message: String?, _ title: String? = nil, delay: TimeInterval? = nil) {
+		DispatchQueue.main.async {
+			shared.showBanner(type: type, title: title, message: message, delay: delay)
+		}
+	}
+
+	class func bannerLoading(_ message: String?, _ title: String? = nil) {
+		DispatchQueue.main.async {
+			shared.showBanner(type: .loading, title: title, message: message, delay: nil)
+		}
+	}
+
+	class func bannerSuccess(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		DispatchQueue.main.async {
+			shared.showBanner(type: .success, title: title, message: message, delay: delay)
+		}
+	}
+
+	class func bannerError(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		DispatchQueue.main.async {
+			shared.showBanner(type: .error, title: title, message: message, delay: delay)
+		}
+	}
+
+	class func bannerWarning(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		DispatchQueue.main.async {
+			shared.showBanner(type: .warning, title: title, message: message, delay: delay)
+		}
+	}
+
+	class func bannerInfo(_ message: String?, _ title: String? = nil, delay: TimeInterval = 4.0) {
+		DispatchQueue.main.async {
+			shared.showBanner(type: .info, title: title, message: message, delay: delay)
+		}
+	}
+
 	class func bannerHide() {
 		DispatchQueue.main.async {
 			shared.hideBanner()
