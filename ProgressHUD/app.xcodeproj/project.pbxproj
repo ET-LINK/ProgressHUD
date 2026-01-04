@@ -17,6 +17,7 @@
 		29A3BDB32AC6ACA90034CAF3 /* ProgressHUD+Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDB22AC6ACA90034CAF3 /* ProgressHUD+Enums.swift */; };
 		29A3BDB52AC6AF780034CAF3 /* ProgressHUD+Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDB42AC6AF780034CAF3 /* ProgressHUD+Public.swift */; };
 		29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D29EF81D9A59E4006CA074 /* AppDelegate.swift */; };
+		29D29EFB1D9A59E4006CA074 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D29EFA1D9A59E4006CA074 /* SceneDelegate.swift */; };
 		29D29F011D9A59E4006CA074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F001D9A59E4006CA074 /* Assets.xcassets */; };
 		29D29F041D9A59E4006CA074 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F021D9A59E4006CA074 /* LaunchScreen.storyboard */; };
 		29D99E7E2AC4A3300073EE38 /* NavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D99E7D2AC4A3300073EE38 /* NavController.swift */; };
@@ -55,6 +56,7 @@
 		29A3BDB42AC6AF780034CAF3 /* ProgressHUD+Public.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+Public.swift"; sourceTree = "<group>"; };
 		29D29EF11D9A59E4006CA074 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D29EF81D9A59E4006CA074 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		29D29EFA1D9A59E4006CA074 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		29D29F001D9A59E4006CA074 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		29D29F031D9A59E4006CA074 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		29D29F051D9A59E4006CA074 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				29D29EF81D9A59E4006CA074 /* AppDelegate.swift */,
+				29D29EFA1D9A59E4006CA074 /* SceneDelegate.swift */,
 				29D29F001D9A59E4006CA074 /* Assets.xcassets */,
 				29D29F051D9A59E4006CA074 /* Info.plist */,
 				29D29F021D9A59E4006CA074 /* LaunchScreen.storyboard */,
@@ -258,6 +261,7 @@
 				29FD93CE2AD9781A0054B585 /* ProgressHUD+HorizontalBarScaling.swift in Sources */,
 				29FD93D12AD9781A0054B585 /* ProgressHUD+ActivityIndicator.swift in Sources */,
 				29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */,
+				29D29EFB1D9A59E4006CA074 /* SceneDelegate.swift in Sources */,
 				29FD93CC2AD9781A0054B585 /* ProgressHUD+CircleArcDotSpin.swift in Sources */,
 				29A3BDB12AC6A7500034CAF3 /* ProgressHUD+Banner.swift in Sources */,
 				29FD93CD2AD9781A0054B585 /* ProgressHUD+PacmanProgress.swift in Sources */,
@@ -425,14 +429,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VTKA9JS87L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 14.1.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
+				PRODUCT_BUNDLE_IDENTIFIER = com.link.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -456,14 +460,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VTKA9JS87L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 14.1.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
+				PRODUCT_BUNDLE_IDENTIFIER = com.link.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
